@@ -9,7 +9,7 @@ Repository ini berisi **contoh proyek Machine Learning sederhana menggunakan PyT
 * Evaluasi model
 * Visualisasi loss menggunakan Matplotlib
 
-Santai tapi serius 😄
+
 
 ---
 
