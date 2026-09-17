@@ -1,0 +1,19 @@
+name: Model Integration Test
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test-pytorch-model:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Run Custom PyTorch Test Action
+        uses: ./
+        with:
+          script_path: 'Learn-Pytorch-Simple_NN.py'
