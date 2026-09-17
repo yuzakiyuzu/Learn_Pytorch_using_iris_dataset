@@ -1,0 +1,50 @@
+name: 'PyTorch Model Test Action'
+description: 'Action untuk menguji dan menjalankan skrip PyTorch Iris classification'
+
+inputs:
+  script_path:
+    description: 'Path ke file skrip PyTorch yang ingin dijalankan'
+    required: false
+    default: 'Learn-Pytorch-Simple_NN.py'
+  python_version:
+    description: 'Versi Python yang digunakan'
+    required: false
+    default: '3.10'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ inputs.python_version }}
+
+    - name: Cache Pip Dependencies
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    - name: Install Dependencies
+      shell: bash
+      run: |
+        python -m pip install --upgrade pip
+        pip install torch pandas numpy matplotlib scikit-learn
+
+    - name: Run PyTorch Script
+      shell: bash
+      run: |
+        echo "Menjalankan testing pada skrip: ${{ inputs.script_path }}"
+        python ${{ inputs.script_path }}
+
+    - name: Verify Model Output
+      shell: bash
+      run: |
+        if [ -f "models/iris_model.pkl" ]; then
+          echo "Testing Berhasil: File model 'models/iris_model.pkl' berhasil dibuat!"
+        else
+          echo "Testing Gagal: File model tidak ditemukan."
+          exit 1
+        fi

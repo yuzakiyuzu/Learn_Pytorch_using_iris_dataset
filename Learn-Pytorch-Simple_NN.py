@@ -59,7 +59,7 @@ for i in range(ephocs):
 plt.plot(range(ephocs),predict_erors) 
 plt.ylabel("loss/errors")
 plt.xlabel("ephocs")
-plt.show()
+plt.savefig('loss_plot.png')
 
 with torch.no_grad():  # Running model without learn 
     y_eval = model.forward(X_test) # Evaluasi result for X_test

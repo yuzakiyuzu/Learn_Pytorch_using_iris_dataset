@@ -1,0 +1,11 @@
+# Python / PyTorch cache
+__pycache__/
+*.pyc
+
+# Virtual Environment (jika ada)
+venv/
+env/
+
+# Model & Output hasil run lokal (opsional)
+models/*.pkl
+*.png
